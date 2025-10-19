@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>16&nbsp; A5: Solving nonlinear equations in 1d III – Math 5485</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./A4 Solution.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<link rel="icon" href="pi.ico" type="image/icon type">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A1 Solution.html">Assignments</a></li><li class="breadcrumb-item"><a href="./A5 Solution.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A5: Solving nonlinear equations in 1d III</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Math 5485</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L1 Introduction to Math 5485.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L2 How computers add.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How do computers add?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L3 Stability and Conditioning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditioning &amp; Stability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L4 Solving nonlinear equations in 1d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Solving nonlinear equations in 1d</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L5 Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Exercises (Chapter 2)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L6-7 Solving nonlinear equations in 1d II.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Solving nonlinear equations in 1d II</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L8 Polynomial Interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Chapter 3: Polynomial Interpolation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L9 Polynomial Interpolation II.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Polynomial Interpolation II</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10 Polynomial Interpolation III.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Polynomial Interpolation III</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11 Exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exercises (Chapter 3)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12 Newton-Cotes Quadrature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Newton-Cotes Quadrature</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Assignments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1 Solution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">A1: Jupyter Notebooks, LaTeX &amp; Julia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2 Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A2: Floating-point numbers, conditioning, and order of convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A3 Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A3: Solving nonlinear equations in 1d</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A4 Solution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">A4: Solving nonlinear equations in 1d II</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A5 Solution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A5: Solving nonlinear equations in 1d III</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#b.-keplers-equation" id="toc-b.-keplers-equation" class="nav-link active" data-scroll-target="#b.-keplers-equation"><span class="header-section-number">16.1</span> B. Kepler’s Equation</a></li>
+  <li><a href="#d.-research-task" id="toc-d.-research-task" class="nav-link" data-scroll-target="#d.-research-task"><span class="header-section-number">16.2</span> D. Research Task</a></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="0 Syllabus.pdf"><i class="bi bi-file-pdf"></i>Syllabus</a></li><li><a href="https://fncbook.com/"><i class="bi bi-link-45deg"></i>FNC book</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A1 Solution.html">Assignments</a></li><li class="breadcrumb-item"><a href="./A5 Solution.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A5: Solving nonlinear equations in 1d III</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A5: Solving nonlinear equations in 1d III</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="abcd4e70" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># useful definitions that we've used so far:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LaTeXStrings</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Polynomials</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PrettyTables</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">simple_iteration</span>( g, x1; N<span class="op">=</span><span class="fl">100</span>, tol<span class="op">=</span><span class="fl">1e-10</span> )</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [ x1 ]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span>N</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>( x, <span class="fu">g</span>(x[n<span class="op">-</span><span class="fl">1</span>]) )</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">abs</span>(<span class="fu">g</span>(x[<span class="kw">end</span>]) <span class="op">-</span> x[<span class="kw">end</span>]) <span class="op">&lt;</span> tol)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> (x[<span class="kw">end</span>] <span class="op">==</span> <span class="cn">Inf</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="pp">@warn</span> <span class="st">"simple iteration diverges to Inf"</span>;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> (x[<span class="kw">end</span>] <span class="op">==</span> <span class="op">-</span><span class="cn">Inf</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="pp">@warn</span> <span class="st">"simple iteration diverges to -Inf"</span>;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">relaxation</span>( f, λ, x1; N<span class="op">=</span><span class="fl">100</span>, tol<span class="op">=</span><span class="fl">1e-10</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [x1]</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="fl">0</span>.;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span>N</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>( x, x[n<span class="op">-</span><span class="fl">1</span>] <span class="op">-</span> <span class="fu">λ*f</span>(x[n<span class="op">-</span><span class="fl">1</span>]) )</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> <span class="fu">abs</span>(<span class="fu">f</span>(x[<span class="kw">end</span>]));</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (r <span class="op">&lt;</span> tol)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@warn</span> <span class="st">"max interations with |f| = </span><span class="sc">$</span>r<span class="st">"</span>;</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">Newton</span>( f, f_prime, x1; N<span class="op">=</span><span class="fl">100</span>, tol<span class="op">=</span><span class="fl">1e-10</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [x1]</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span>N</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>( x, x[n<span class="op">-</span><span class="fl">1</span>] <span class="op">-</span> <span class="fu">f</span>(x[n<span class="op">-</span><span class="fl">1</span>])<span class="op">/</span><span class="fu">f_prime</span>(x[n<span class="op">-</span><span class="fl">1</span>]) )</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> <span class="fu">abs</span>(<span class="fu">f</span>(x[<span class="kw">end</span>]));</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (r <span class="op">&lt;</span> tol)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@warn</span> <span class="st">"max interations |f| = </span><span class="sc">$</span>r<span class="st">"</span>;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">orderOfConvergence</span>( x, ξ; α<span class="op">=</span><span class="fl">0</span> )</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    err <span class="op">=</span> @. <span class="fu">abs</span>(x <span class="op">-</span> ξ)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    logerr <span class="op">=</span> @. <span class="fu">log10</span>( err )</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    ratios <span class="op">=</span> [<span class="cn">NaN</span>; [logerr[i<span class="op">+</span><span class="fl">1</span>] <span class="op">/</span> logerr[i] for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(logerr)<span class="op">-</span><span class="fl">1</span>]]</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (α <span class="op">==</span> <span class="fl">0</span>) </span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        α <span class="op">=</span> ratios[<span class="kw">end</span>]</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>        αr <span class="op">=</span> <span class="fu">round</span>(α, sigdigits<span class="op">=</span><span class="fl">3</span>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> [<span class="cn">NaN</span>; [err[i<span class="op">+</span><span class="fl">1</span>] <span class="op">/</span> err[i]<span class="op">^</span>α for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(err)<span class="op">-</span><span class="fl">1</span>]]</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pretty_table</span>( </span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>         [<span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(x) err logerr ratios mu];</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        column_labels <span class="op">=</span> [<span class="st">"iteration"</span>, <span class="st">"absolute error"</span>, <span class="st">"log error"</span>, <span class="st">"alpha"</span>, <span class="st">"mu (α = </span><span class="sc">$</span><span class="st">α)" ]</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="st">    )</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>end</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>function <span class="fu">μ</span>( x, ξ; α<span class="op">=</span><span class="fl">1</span> )</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    return @. <span class="fu">abs</span>( x[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>] <span class="op">-</span> ξ ) <span class="op">/</span> ( <span class="fu">abs</span>(x[<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>] <span class="op">-</span> ξ )<span class="op">^</span>α );</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> </span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>ϵ <span class="op">=</span> <span class="fl">1</span>.;</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> ψ <span class="op">-&gt;</span> ψ <span class="op">-</span> ϵ <span class="op">*</span> <span class="fu">sin</span>(ψ) <span class="op">-</span> <span class="fl">2</span>π; <span class="co"># has a zero at 2π</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> ψ <span class="op">-&gt;</span> <span class="fl">1</span> <span class="op">-</span> ϵ <span class="op">*</span> <span class="fu">cos</span>(ψ)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>ξ <span class="op">=</span> <span class="fl">2</span>π</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>6.283185307179586</code></pre>
+</div>
+</div>
+<section id="b.-keplers-equation" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="b.-keplers-equation"><span class="header-section-number">16.1</span> B. Kepler’s Equation</h2>
+<p>In lectures, we considered the equation</p>
+<p><span class="math display">\begin{align}
+    f(\psi) := \psi - \epsilon \sin \psi - 2\pi = 0
+\end{align}</span></p>
+<p>with <span class="math inline">\epsilon = 0.9</span>. Recall that we showed that the Relaxation Method (<span class="math inline">x_{n+1} = x_n - \lambda f(x_n)</span>) converged linearly with asymptotic error constant <span class="math inline">\left| 1 - 0.1 \lambda \right|</span> and Newton’s Method converged faster than quadratically. For the remainder of this question, fix <span class="math inline">\epsilon = 1</span>. Here’s a plot of <span class="math inline">f</span>:</p>
+<div id="cab1b7cc" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( f, <span class="fl">0</span>, <span class="fl">10</span>, label<span class="op">=</span>L<span class="st">"f"</span>, lw<span class="op">=</span><span class="fl">3</span> )</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hline!</span>( [<span class="fl">0</span>] , linestyle<span class="op">=:</span>dash, lw <span class="op">=</span> <span class="fl">3</span>, label<span class="op">=</span>L<span class="st">"y=0"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>( [ξ], [<span class="fu">f</span>(ξ)], markersize<span class="op">=</span><span class="fl">5</span>, primary<span class="op">=</span><span class="cn">false</span> )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<img src="data:image/png;base64,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">
+</div>
+</div>
+<ol type="1">
+<li>✍ Show that <span class="math inline">2\pi</span> is the unique solution to <span class="math inline">f = 0</span>.</li>
+</ol>
+<div class="alert alert-block alert-success">
+<p><b>Answer.</b></p>
+<p>First notice that <span class="math inline">f(2\pi) = 2\pi - \sin2\pi - 2\pi = 0</span>. We will use the fact that <span class="math inline">| \sin x | &lt; |x|</span> for all <span class="math inline">x \not= 0</span>. Using the fact that <span class="math inline">\sin</span> is <span class="math inline">2\pi</span>-periodic, we have</p>
+<p><span class="math display">\begin{align}
+    f(\psi) &amp;= \psi - 2\pi - \sin(\psi - 2\pi).
+\end{align}</span></p>
+<p>Therefore, for <span class="math inline">\psi &gt; 2\pi</span>, we have <span class="math inline">f(\psi) &gt; 0</span> and, for <span class="math inline">\psi &lt; 2\pi</span>, we have <span class="math inline">f(\psi) &lt; 0</span>.</p>
+</div>
+<ol start="2" type="1">
+<li>💻 Show numerically that the relaxation method converges for some choice of <span class="math inline">\lambda</span>. What is the order of convergence of this method?</li>
+</ol>
+<div class="alert alert-block alert-success">
+<p><b>Answer.</b></p>
+<p>Here is the the relaxation method applied to <span class="math inline">f</span> with <span class="math inline">\lambda = 10</span>: that is <span class="math inline">x_{n+1} = x_n - 10 f(x_n)</span>.</p>
+</div>
+<div id="be629ea8" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fu">relaxation</span>(f, <span class="fl">10</span>., <span class="fl">6</span>.) </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">orderOfConvergence</span>( x, <span class="fl">2</span>π; α<span class="op">=</span><span class="fl">1</span>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre>┌───────────┬────────────────┬───────────┬─────────┬────────────┐
+
+│<span class="ansi-bold"> iteration </span>│<span class="ansi-bold"> absolute error </span>│<span class="ansi-bold"> log error </span>│<span class="ansi-bold">   alpha </span>│<span class="ansi-bold"> mu (α = 1) </span>│
+
+├───────────┼────────────────┼───────────┼─────────┼────────────┤
+
+│       1.0 │       0.283185 │ -0.547929 │     NaN │        NaN │
+
+│       2.0 │       0.245487 │ -0.609971 │ 1.11323 │   0.866878 │
+
+│       3.0 │       0.220905 │ -0.655795 │ 1.07512 │   0.899862 │
+
+│       4.0 │       0.202982 │ -0.692543 │ 1.05603 │   0.918867 │
+
+│       5.0 │       0.189072 │ -0.723373 │ 1.04452 │   0.931472 │
+
+│       6.0 │       0.177827 │ -0.750002 │ 1.03681 │   0.940526 │
+
+│       7.0 │        0.16847 │ -0.773478 │  1.0313 │   0.947379 │
+
+│       8.0 │       0.160512 │ -0.794493 │ 1.02717 │   0.952764 │
+
+│       9.0 │       0.153628 │ -0.813529 │ 1.02396 │   0.957115 │
+
+│      10.0 │       0.147592 │ -0.830936 │  1.0214 │    0.96071 │
+
+│      11.0 │        0.14224 │ -0.846979 │ 1.01931 │   0.963734 │
+
+│      12.0 │       0.137448 │ -0.861861 │ 1.01757 │   0.966314 │
+
+│      13.0 │       0.133124 │ -0.875742 │ 1.01611 │   0.968543 │
+
+│      14.0 │       0.129196 │ -0.888751 │ 1.01486 │   0.970489 │
+
+│      15.0 │       0.125605 │ -0.900994 │ 1.01378 │   0.972204 │
+
+│      16.0 │       0.122305 │ -0.912557 │ 1.01283 │   0.973726 │
+
+│      17.0 │       0.119258 │ -0.923513 │ 1.01201 │   0.975088 │
+
+│      18.0 │       0.116433 │ -0.933924 │ 1.01127 │   0.976313 │
+
+│      19.0 │       0.113804 │ -0.943843 │ 1.01062 │   0.977421 │
+
+│      20.0 │       0.111349 │ -0.953314 │ 1.01003 │   0.978428 │
+
+│      21.0 │        0.10905 │ -0.962376 │ 1.00951 │   0.979348 │
+
+│      22.0 │       0.106889 │ -0.971065 │ 1.00903 │   0.980192 │
+
+│         ⋮ │              ⋮ │         ⋮ │       ⋮ │          ⋮ │
+
+└───────────┴────────────────┴───────────┴─────────┴────────────┘
+
+<span class="ansi-cyan-fg">                                                  78 rows omitted</span>
+</pre>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-yellow-fg ansi-bold">┌ </span><span class="ansi-yellow-fg ansi-bold">Warning: </span>max interations with |f| = 2.5345819611999332e-5
+
+<span class="ansi-yellow-fg ansi-bold">└ </span><span class="ansi-bright-black-fg">@ Main In[22]:35</span>
+</pre>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-success">
+This iteration seems to converge very slowly and the computed order of convergence seems to appoach <span class="math inline">1</span>. However, since <span class="math inline">\mu</span> also approaches <span class="math inline">1</span>, we have sub-linear convergence.
+</div>
+<ol start="3" type="1">
+<li>💻 Show numerically that Newton’s method converges. What is the order of convergence?</li>
+</ol>
+<div class="alert alert-block alert-success">
+<p><b>Answer.</b></p>
+<p>Here is the code for Newton’s method starting at <span class="math inline">x_1 = 6</span>.</p>
+</div>
+<div id="112fd6d3" class="cell" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fu">Newton</span>(f, df, <span class="fl">6</span>.);</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">orderOfConvergence</span>( y, <span class="fl">2</span>π, α <span class="op">=</span> <span class="fl">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre>┌───────────┬────────────────┬───────────┬─────────┬────────────┐
+
+│<span class="ansi-bold"> iteration </span>│<span class="ansi-bold"> absolute error </span>│<span class="ansi-bold"> log error </span>│<span class="ansi-bold">   alpha </span>│<span class="ansi-bold"> mu (α = 1) </span>│
+
+├───────────┼────────────────┼───────────┼─────────┼────────────┤
+
+│       1.0 │       0.283185 │ -0.547929 │     NaN │        NaN │
+
+│       2.0 │       0.188537 │ -0.724603 │ 1.32244 │   0.665773 │
+
+│       3.0 │       0.125617 │ -0.900952 │ 1.24337 │   0.666271 │
+
+│       4.0 │      0.0837225 │  -1.07716 │ 1.19558 │   0.666491 │
+
+│       5.0 │      0.0558085 │   -1.2533 │ 1.16352 │   0.666589 │
+
+│       6.0 │      0.0372037 │  -1.42941 │ 1.14052 │   0.666632 │
+
+│       7.0 │      0.0248019 │  -1.60551 │  1.1232 │   0.666651 │
+
+│       8.0 │      0.0165344 │  -1.78161 │ 1.10968 │    0.66666 │
+
+│       9.0 │      0.0110229 │   -1.9577 │ 1.09884 │   0.666664 │
+
+│      10.0 │     0.00734859 │   -2.1338 │ 1.08995 │   0.666665 │
+
+│      11.0 │     0.00489906 │  -2.30989 │ 1.08253 │   0.666666 │
+
+│      12.0 │     0.00326604 │  -2.48598 │ 1.07623 │   0.666666 │
+
+│      13.0 │     0.00217736 │  -2.66207 │ 1.07083 │   0.666667 │
+
+│      14.0 │     0.00145157 │  -2.83816 │ 1.06615 │   0.666667 │
+
+│      15.0 │    0.000967715 │  -3.01425 │ 1.06204 │   0.666667 │
+
+│      16.0 │    0.000645144 │  -3.19034 │ 1.05842 │   0.666667 │
+
+└───────────┴────────────────┴───────────┴─────────┴────────────┘
+</pre>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-success">
+<p>The iteration seems to converge linearly with asymptotic error constant <span class="math inline">\mu = \frac{2}3</span>.</p>
+</div>
+<ol start="4" type="1">
+<li>✍ Compare your answers to this question to the <span class="math inline">\epsilon = 0.9</span> case. Why is the convergence slower/faster?</li>
+</ol>
+<div class="alert alert-block alert-success">
+<p><b>Answer.</b></p>
+<p>In lectures, we saw that, if <span class="math inline">| g'(\xi) | &lt; 1</span>, and <span class="math inline">|x_1 - \xi|</span> is sufficiently small then the simple iteration <span class="math inline">x_{n+1} = g(x_n)</span> converges at least linearly with asymptotic erorr constant <span class="math inline">\mu = |g'(\xi)|</span>. We are considering <span class="math inline">g(\psi) = \psi - \lambda f(\psi)</span> with <span class="math inline">f(\psi) = \psi - \epsilon \sin \psi - 2\pi</span>. We see that <span class="math inline">|g'(2\pi)| = | 1 - \lambda( 1 - \epsilon) |</span>. Therefore, in the <span class="math inline">\epsilon = 0.9</span> case we have linear convergence whenever <span class="math inline">|1 - 0.1 \lambda | &lt; 1</span>. However, when <span class="math inline">\epsilon = 1</span>, we get <span class="math inline">|g'(2\pi)| = 1</span> and sublinear convergence.</p>
+<p>In lectures, we saw that if <span class="math inline">f : [a,b] \to \mathbb R</span> is twice continuously differentiable with <span class="math inline">f(\xi) = 0</span> and <span class="math inline">f'(\xi) \not= 0</span>, then the Newton iteration converges at least quadratically to <span class="math inline">\xi</span> for all <span class="math inline">x_1</span> sufficiently close to <span class="math inline">\xi</span>. We have <span class="math inline">f'(2\pi) = 1 - \epsilon</span> so <span class="math inline">f'(2\pi) \not= 0</span> when <span class="math inline">\epsilon = 0.9</span> but <span class="math inline">f'(2\pi) = 0</span> when <span class="math inline">\epsilon = 1</span>.</p>
+<p>When <span class="math inline">\epsilon = 1</span>, we have</p>
+<p><span class="math display">\begin{align}
+    f'(\psi) &amp;= 1 - \cos \psi \nonumber\\
+    f''(\psi) &amp;= \sin\psi \nonumber\\
+    f'''(\psi) &amp;= \cos\psi
+\end{align}</span></p>
+<p>This means that, for <span class="math inline">\xi = 2\pi</span>, we have <span class="math inline">f(\xi) = f'(\xi) = f''(\xi) = 0</span> but <span class="math inline">f'''(\xi) \not= 0</span>. In this case, there exists an interval <span class="math inline">a&lt; \xi &lt; b</span> and <span class="math inline">m &gt; 0</span> such that <span class="math inline">m &lt; |f'''(x)| &lt; 2m</span> for all <span class="math inline">x \in [a,b]</span>. Therefore, for <span class="math inline">x_n \in [a,b]</span>, there exists <span class="math inline">\eta_n, \theta_n</span> between <span class="math inline">x_n</span> and <span class="math inline">\xi</span> for which</p>
+<p><span class="math display">\begin{align}
+    &amp;\left| x_{n+1} - \xi \right| = \left| x_n - \xi - \frac{f(x_n)}{f'(x_n)} \right|  \nonumber\\
+    %
+    &amp;= \left| x_n - \xi - \frac{f(\xi) + f'(\xi)(x_n- \xi) + \frac12 f''(\xi) (x_n-\xi)^2 + \frac16 f'''(\eta_n) (x_n-\xi)^3}{f'(\xi) + f''(\xi) (x_n - \xi) + \frac12 f'''(\theta_n)(x_n-\xi)^2} \right| \nonumber\\
+    %
+    &amp;= \left| 1 - \frac13\frac{f'''(\eta_n)}{f'''(\theta_n)} \right| \left| x_n- \xi \right| \nonumber\\
+    %
+    &amp;\leq \frac56 |x_n - \xi|
+\end{align}</span></p>
+<p>Here, we have used the fact that <span class="math inline">\frac13 = 1 -\frac{1}3\frac{2m}{m} \leq 1-\frac{1}3\frac{f'''(\eta_n)}{f'''(\theta_n)} \leq 1- \frac{1}3\frac{m}{2m} = \frac56</span>. As a result, Newton’s iteration starting in <span class="math inline">[a,b]</span> converges linearly with asymptotic error constant</p>
+<p><span class="math display">\begin{align}
+    \mu = \lim_{n\to \infty} \frac{|x_{n+1} - \xi|}{|x_n - \xi|} = \left| 1 - \frac13\frac{f'''(\xi)}{f'''(\xi)} \right| = \frac23.
+\end{align}</span></p>
+</div>
+<div class="alert alert-block alert-danger">
+<p><b>Remark.</b></p>
+<p>In general, if <span class="math inline">\xi</span> is a root of <span class="math inline">f</span> of multiplicity <span class="math inline">m</span> and <span class="math inline">f^{(m)}</span> is continuous (and <span class="math inline">f^{(m)}(\xi) \not=0</span>), then one can find an interval <span class="math inline">[a,b]</span> around <span class="math inline">\xi</span> for which Newton’s iteration converges linearly to <span class="math inline">\xi</span> for all <span class="math inline">x_1 \in [a,b]</span> and the asymptotic error constant is <span class="math inline">\mu = \frac{m-1}{m}</span> (can you prove this?).</p>
+</div>
+</section>
+<section id="d.-research-task" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="d.-research-task"><span class="header-section-number">16.2</span> D. Research Task</h2>
+<p>Find a research paper explaining a method named after one of the following people: Halley, Householder, Osada, Ostrowski, Steffensen, Traub. What is the main novelty of this method? How does it (claim to) improve upon previous methods in the literature? Implement your chosen method and test it on a function of your choice.</p>
+<p>Please clearly cite which paper you are describing.</p>
+<div class="alert alert-block alert-success">
+<p>There are many possible answers! Let me know if you want to present your answer to the rest of the class (see Syllabus for grading info).</p>
+<p>Maybe we could also add some of the best answers to <a href="https://z.umn.edu/Math5485">https://z.umn.edu/Math5485</a></p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/z\.umn\.edu\/Math5485");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./A4 Solution.html" class="pagination-link" aria-label="A4: Solving nonlinear equations in 1d II">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">A4: Solving nonlinear equations in 1d II</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
